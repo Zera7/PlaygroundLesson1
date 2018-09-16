@@ -1,131 +1,106 @@
-//: Playground - noun: a place where people can play
+import Foundation 
 
-import UIKit
+// Task 1
+var testArray = [7,6,3,4,-1,8,6,5,3,2,0,1,5,3]
 
-var str = "Hello, playground"
-var someString = "hi"
+func InsertionSort(_ arr:[Int])->[Int]{
+    var array = arr
+    var x = 0
+    var j = 0
+    for i in 0...array.count - 1{
+        x = arr[i]
+        j = i - 1
+        while j >= 0 && array[j] > x {
+            array[j+1] = array[j]
+            j -= 1
+        }
+        array[j+1] = x
+    }
+    return array
+}
+//print (InsertionSort(testArray))
 
-str = "123"
-someString = "1"
+// Task 2
 
-var someArray: Array<String> = ["value"]
-var someArray2 = [Int]()
-
-for _ in someArray {
-    print("Hello")
+class First{
+    private var a = 0
+    public var b = 1
 }
 
-for value in someArray {
-    print("\(value)")
+class Second: First{
+    private var c = 2
+
+    func Example(_ a:Int){
+        //...
+    }
+    func Example(_ a:Double){
+        //...
+    }
 }
 
-for index in 0 ..< someArray.count - 1 {
-    print("\(index)")
-}
+// Task 3
 
-for value in someArray.enumerated() {
+class BinaryTree<T>{
+    var LeftTree:BinaryTree? = nil
+    var RightTree:BinaryTree? = nil
+    var Data:T
     
-}
+    init(_ data:T) {
+        self.Data = data
+    }
 
-someArray.forEach { (someString) in
-    print("printing")
-}
+    class MyArray{
+        public var array = Array<T>()
+    }
 
-someArray.forEach{ print($0) }
+    private var array = MyArray()
 
-var someIntValue: Int? = nil
-
-someIntValue?.signum()
-
-if let newValue = someIntValue, newValue > 0 {
-    someIntValue = someIntValue! + 1
-}
-
-if let intValue = Int(str) {
-    someIntValue = intValue
-}
-
-
-func selectionSort(_ list:[Int]) -> [Int] {
-    
-    guard list.count > 1 else { return list }
-    
-    var mutableArray = list
-    
-    for index in 0 ..< mutableArray.count - 1 {
-        
-        var minIndex = index
-        
-        for nextIndex in minIndex + 1 ..< mutableArray.count {
-            
-            if mutableArray[minIndex] < mutableArray[nextIndex] {
-                minIndex = nextIndex
+    func Add(_ data:T){
+        var tree = self
+        while true{
+            if tree.LeftTree == nil{
+                tree.LeftTree = BinaryTree(data)
+                print("Записано влево")
+                break
+            }
+            else if tree.RightTree == nil{
+                tree.RightTree = BinaryTree(data)
+                print("Записано вправо")
+                break
+            }
+            else{
+                if (arc4random_uniform(2) == 0){ // рандом не работает :(
+                    tree = tree.LeftTree!
+                }
+                else{
+                    tree = tree.RightTree!
+                }
+                print("Переход вниз на уровень")
             }
         }
-        if index != minIndex {
-            mutableArray.swapAt(index, minIndex)
+    }
+
+    func getArray()->Array<T>{
+        getArray(self)
+        var array = self.array.array
+        self.array.array.removeAll()
+        return array
+    }
+    private func getArray(_ tree:BinaryTree){
+        array.array.append(tree.Data)
+        if (LeftTree != nil){
+            getArray(LeftTree!)
+        }
+        if (RightTree != nil){
+            getArray(RightTree!)
         }
     }
-    return mutableArray
 }
 
-let list = [1,3,5,-2,123,0]
+var a = BinaryTree(1)
+a.Add(2)
+a.Add(3)
+a.Add(4)
 
-selectionSort(list)
-
-protocol Human {
-    var name: String { get set }
-    var age: Int { get set }
-    
-    func speakHi()
-}
-
-
-class User: Human {
-    var name: String
-    var lastName: String = ""
-    var age: Int
-    var value: Character = "a"
-    
-    static let uniqId = 0
-    
-    init(name: String, age: Int) {
-        self.name = name
-        self.age = age
-    }
-    
-    init(lastName: String) {
-        self.name = "Default"
-        self.age = 18
-        self.lastName = lastName
-    }
-    
-    func speakHi() {
-        print("Hi!")
-    }
-}
-
-class OldUser: User {
-    
-    override func speakHi() {
-        super.speakHi()
-        print("second hi")
-    }
-}
-
-struct Car {
-    var name: String
-    var cost: Double
-}
-
-let newCar = Car(name: "", cost: 1.2)
-
-
-let myUser = User(lastName: "Default")
-
-var dictionary: Dictionary<Int,Any> = [:]
-
-dictionary[0] = "String"
-dictionary[1] = 123
 
 
